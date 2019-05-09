@@ -8,7 +8,7 @@ Q1: 时间复杂度和空间复杂度是啥
 Q2: 效率高 代码量 关联 Python和Go不同
 Q3: 模拟 递归 通顶
 */
-package HomeWork
+package main
 
 import (
 	"fmt"
