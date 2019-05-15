@@ -1,7 +1,5 @@
 package structure
 
-import "fmt"
-
 type MyLinkedList struct {
 	data int
 	Next *MyLinkedList
@@ -106,6 +104,7 @@ func (this *MyLinkedList) DeleteAtIndex(index int) {
  * obj.DeleteAtIndex(index);
  */
 
+/*
 func main() {
 	obj := Constructor()
 	obj.AddAtIndex(-1, 0)
@@ -113,3 +112,4 @@ func main() {
 	obj.DeleteAtIndex(-1)
 	fmt.Println(obj.Get(0))
 }
+*/
