@@ -11,8 +11,8 @@ Q3: 模拟 递归 通顶
 package main
 
 import (
+	structure "../structure/none-head-linked-list"
 	"fmt"
-	"../structure/head-linked-list"
 )
 
 // 使用链表
@@ -34,13 +34,22 @@ func main() {
 		return
 	}
 	// generate people array
-	linkList := structure.Constructor()
+	//linkList := structure.Constructor()
+	linkList := &structure.MyLinkedList{Data: 1}
 	// init linked list
-	for i:=1; 1<=length; i++ {
+	for i := 2; i <= length; i++ {
 		linkList.AddAtTail(i)
 	}
 	// closing the circle
 	linkList.Circle()
+	linkList.Go(starter)
 	// main function
-	if linkList
+	for n := 1; ; n++ {
+		if linkList == linkList.Next {
+			return
+		} else {
+			linkList = linkList.DeleteAtIndex(times)
+			fmt.Println(linkList.Data)
+		}
+	}
 }

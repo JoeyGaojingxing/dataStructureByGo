@@ -25,9 +25,6 @@ func main() {
 	if length == 0 || n == 0 {
 		fmt.Println("数组长度有误")
 		return
-	} else if length > 1000 {
-		fmt.Println("最大长度为1000")
-		return
 	} else if starter >= length {
 		fmt.Println("起始位置有误")
 		return
@@ -35,16 +32,15 @@ func main() {
 	// generate people array
 	var arr []int
 	var result []int
-	for i := starter; i < length; i++ {
+	for i := 0; i < length; i++ {
 		arr = append(arr, i+1)
 	}
-	i, pop := 0, 1
-	fmt.Println(len(arr))
+	i, pop := starter-1, 1
+	fmt.Println(arr)
 	for {
 		if pop == times {
 			result = append(result, arr[i])
-			fmt.Println(arr[i])
-			arr = append(arr[0:i], arr[i+1:]...)
+			arr = append(arr[:i], arr[i+1:]...)
 			pop = 0
 			i--
 		}
@@ -58,5 +54,5 @@ func main() {
 		}
 		pop++
 	}
-	fmt.Println(result)
+	fmt.Println(result, arr[0])
 }
