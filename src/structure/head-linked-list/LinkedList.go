@@ -6,9 +6,9 @@ type MyLinkedList struct {
 }
 
 /** Initialize your data structure here. */
-func Constructor() MyLinkedList {
+func Constructor() *MyLinkedList {
 	node := MyLinkedList{}
-	return node
+	return &node
 }
 
 /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
