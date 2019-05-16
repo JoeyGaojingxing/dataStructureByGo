@@ -1,4 +1,4 @@
-package structure
+package head_linked_list
 
 type MyLinkedList struct {
 	data int

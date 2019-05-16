@@ -12,7 +12,7 @@ package main
 
 import (
 	"fmt"
-	"../structure"
+	"../structure/head-linked-list"
 )
 
 // 使用链表
