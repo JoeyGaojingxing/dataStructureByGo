@@ -17,22 +17,25 @@ import (
 // 使用数组
 func main() {
 	var (
-		length   int
-		n, times int
+		length            int
+		n, times, starter int
 	)
-	fmt.Println("约瑟夫环问题\n请输入人数 报数周期")
-	n, _ = fmt.Scanln(&length, &times)
+	fmt.Println("约瑟夫环问题\n请输入人数 报数周期 报数起始人")
+	n, _ = fmt.Scanln(&length, &times, &starter)
 	if length == 0 || n == 0 {
 		fmt.Println("数组长度有误")
 		return
 	} else if length > 1000 {
 		fmt.Println("最大长度为1000")
 		return
+	} else if starter >= length {
+		fmt.Println("起始位置有误")
+		return
 	}
 	// generate people array
 	var arr []int
 	var result []int
-	for i := 0; i < length; i++ {
+	for i := starter; i < length; i++ {
 		arr = append(arr, i+1)
 	}
 	i, pop := 0, 1
@@ -57,10 +60,3 @@ func main() {
 	}
 	fmt.Println(result)
 }
-
-// 使用链表
-/*
-func main() {
-
-}
-*/
