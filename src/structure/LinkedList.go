@@ -94,6 +94,19 @@ func (this *MyLinkedList) DeleteAtIndex(index int) {
 	}
 }
 
+// close the linked list to circle
+func (this *MyLinkedList) Circle() {
+	start := this.Next
+	for {
+		if this.Next == nil {
+			this.Next = start
+			return
+		} else {
+			this = this.Next
+		}
+	}
+}
+
 /**
  * Your MyLinkedList object will be instantiated and called as such:
  * obj := Constructor();
