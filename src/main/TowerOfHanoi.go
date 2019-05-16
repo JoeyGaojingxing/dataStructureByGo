@@ -11,6 +11,7 @@ func moveHanoi(num int) int {
 }
 
 func main() {
+	// use recursion 递归
 	var num int
 	_, _ = fmt.Scanln(&num)
 	result := moveHanoi(num)
