@@ -44,3 +44,11 @@ func (parent stack) IsFull() bool {
 		return false
 	}
 }
+
+func (parent stack) Peek() []int {
+	if parent.IsNone() {
+		return nil
+	} else {
+		return parent.stack[length-1]
+	}
+}
