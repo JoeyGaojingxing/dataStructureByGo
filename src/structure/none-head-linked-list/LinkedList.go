@@ -1,7 +1,7 @@
 package none_head_linked_list
 
 type MyLinkedList struct {
-	Data int
+	Data byte
 	Next *MyLinkedList
 }
 
@@ -11,24 +11,25 @@ func Constructor() *MyLinkedList {
 }
 
 /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
-func (this *MyLinkedList) Get(index int) int {
+func (this *MyLinkedList) Get(index byte) byte {
 	if this == nil {
-		return -1
+		return 0
 	} else {
-		for i := 0; ; i++ {
+		var i byte = 0
+		for ; ; i++ {
 			if i == index {
 				return this.Data
 			} else if this.Next != nil {
 				this = this.Next
 			} else {
-				return -1
+				return 0
 			}
 		}
 	}
 }
 
 /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
-func (this *MyLinkedList) AddAtHead(val int) {
+func (this *MyLinkedList) AddAtHead(val byte) {
 	if this == nil {
 		this = &MyLinkedList{Data: val}
 		return
@@ -40,7 +41,7 @@ func (this *MyLinkedList) AddAtHead(val int) {
 }
 
 /** Append a node of value val to the last element of the linked list. */
-func (this *MyLinkedList) AddAtTail(val int) {
+func (this *MyLinkedList) AddAtTail(val byte) {
 	if this == nil {
 		this = &MyLinkedList{Data: val}
 		return
@@ -57,7 +58,7 @@ func (this *MyLinkedList) AddAtTail(val int) {
 }
 
 /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
-func (this *MyLinkedList) AddAtIndex(index int, val int) {
+func (this *MyLinkedList) AddAtIndex(index, val byte) {
 	if this == nil {
 		if index == 0 {
 			this = &MyLinkedList{Data: val}
@@ -67,7 +68,8 @@ func (this *MyLinkedList) AddAtIndex(index int, val int) {
 		}
 	} else {
 		pre := this
-		for i := 0; ; i++ {
+		var i byte = 0
+		for ; ; i++ {
 			if i == index {
 				if pre == this {
 					this.AddAtHead(val)
@@ -93,7 +95,7 @@ func (this *MyLinkedList) AddAtIndex(index int, val int) {
 }
 
 /** Delete the index-th node in the linked list, if the index is valid. */
-func (this *MyLinkedList) DeleteAtIndex(index int) *MyLinkedList {
+func (this *MyLinkedList) DeleteAtIndex(index byte) *MyLinkedList {
 	if this == nil {
 		return nil
 	} else if index == 0 {
@@ -109,7 +111,8 @@ func (this *MyLinkedList) DeleteAtIndex(index int) *MyLinkedList {
 		}
 	} else {
 		pre := this
-		for i := 0; ; i++ {
+		var i byte = 1
+		for ; ; i++ {
 			if i == index {
 				if this.Next == nil {
 					result := this
@@ -120,9 +123,8 @@ func (this *MyLinkedList) DeleteAtIndex(index int) *MyLinkedList {
 					this = nil
 					return result
 				} else {
-					result := pre.Next
 					pre.Next = this.Next
-					return result
+					return this
 				}
 			} else {
 				pre = this
@@ -145,8 +147,9 @@ func (this *MyLinkedList) Circle() {
 	}
 }
 
-func (this *MyLinkedList) Go(val int) *MyLinkedList {
-	for i := 1; i <= val; i++ {
+func (this *MyLinkedList) Go(val byte) *MyLinkedList {
+	var i byte = 1
+	for ; i < val; i++ {
 		this = this.Next
 	}
 	return this

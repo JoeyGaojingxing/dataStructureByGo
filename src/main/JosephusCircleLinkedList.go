@@ -44,7 +44,7 @@ func main() {
 	}
 	// closing the circle
 	linkList.Circle()
-	linkList.Go(starter)
+	linkList.Go(byte(starter) - 1)
 	// main function
 	for n := 1; ; n++ {
 		if linkList == linkList.Next {
