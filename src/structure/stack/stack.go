@@ -49,6 +49,6 @@ func (parent stack) Peek() []int {
 	if parent.IsNone() {
 		return nil
 	} else {
-		return parent.stack[length-1]
+		return parent.stack[len(parent.stack)-1]
 	}
 }

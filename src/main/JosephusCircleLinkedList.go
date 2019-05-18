@@ -39,7 +39,8 @@ func main() {
 	//linkList := structure.Constructor()
 	linkList := &structure.MyLinkedList{Data: 1}
 	// init linked list
-	for i := 2; i <= length; i++ {
+	var i byte
+	for i = 2; int(i) <= length; i++ {
 		linkList.AddAtTail(i)
 	}
 	// closing the circle
@@ -50,7 +51,7 @@ func main() {
 		if linkList == linkList.Next {
 			return
 		} else {
-			linkList = linkList.DeleteAtIndex(times)
+			linkList = linkList.DeleteAtIndex(byte(times))
 			fmt.Println(linkList.Data)
 		}
 	}
