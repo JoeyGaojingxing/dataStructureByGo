@@ -66,7 +66,7 @@ def search(grid, init, goal, cost, heuristic):
                 for i in range(len(delta)):  # to try out different valid actions
                     x2 = x + delta[i][0]
                     y2 = y + delta[i][1]
-                    if x2 >= 0 and x2 < len(grid) and y2 >= 0 and y2 < len(grid[0]):
+                    if 0 <= x2 < len(grid) and 0 <= y2 < len(grid[0]):
                         if closed[x2][y2] == 0 and grid[x2][y2] == 0:
                             g2 = g + cost
                             f2 = g2 + heuristic[x2][y2]

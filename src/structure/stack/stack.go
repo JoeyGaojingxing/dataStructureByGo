@@ -1,14 +1,14 @@
 package stack
 
-const arraySize = 10
+const arraySize = 100
 
 type Stack struct {
-	top  int
-	data [arraySize]int
+	top  rune
+	data [arraySize][4]rune
 }
 
-func (s *Stack) Push(i int) bool {
-	if s.top == len(s.data) {
+func (s *Stack) Push(i [4]rune) bool {
+	if s.top == rune(len(s.data)) {
 		return false
 	}
 	s.data[s.top] = i
@@ -16,20 +16,20 @@ func (s *Stack) Push(i int) bool {
 	return true
 }
 
-func (s *Stack) Pop() (int, bool) {
+func (s *Stack) Pop() (*[4]rune, bool) {
 	if s.top == 0 {
-		return 0, false
+		return nil, false
 	}
 	i := s.data[s.top-1]
 	s.top -= 1
-	return i, true
+	return &i, true
 }
 
-func (s *Stack) Peek() int {
+func (s *Stack) Peek() [4]rune {
 	return s.data[s.top-1]
 }
 
-func (s *Stack) Get() []int {
+func (s *Stack) Get() [][4]rune {
 	return s.data[:s.top]
 }
 
