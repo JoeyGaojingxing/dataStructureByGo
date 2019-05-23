@@ -1,54 +1,42 @@
 package stack
 
-type stack struct {
-	stack [][]int
-	limit int
+const arraySize = 10
+
+type Stack struct {
+	top  int
+	data [arraySize]int
 }
 
-func NewStack(limit int) *stack {
-	data := stack{limit: limit}
-	return &data
-}
-
-func (parent stack) Push(val []int) {
-	if parent.IsFull() {
-		return
-	}
-	arr := append(parent.stack, val)
-	parent.stack = arr
-	return
-}
-
-func (parent stack) Pop() []int {
-	if parent.IsNone() {
-		return nil
-	}
-	length := len(parent.stack)
-	result := parent.stack[length-1]
-	parent.stack = parent.stack[:length-1]
-	return result
-}
-
-func (parent stack) IsNone() bool {
-	if len(parent.stack) == 0 {
-		return true
-	} else {
+func (s *Stack) Push(i int) bool {
+	if s.top == len(s.data) {
 		return false
 	}
+	s.data[s.top] = i
+	s.top += 1
+	return true
 }
 
-func (parent stack) IsFull() bool {
-	if len(parent.stack) == parent.limit {
-		return true
-	} else {
-		return false
+func (s *Stack) Pop() (int, bool) {
+	if s.top == 0 {
+		return 0, false
 	}
+	i := s.data[s.top-1]
+	s.top -= 1
+	return i, true
 }
 
-func (parent stack) Peek() []int {
-	if parent.IsNone() {
-		return nil
-	} else {
-		return parent.stack[len(parent.stack)-1]
-	}
+func (s *Stack) Peek() int {
+	return s.data[s.top-1]
+}
+
+func (s *Stack) Get() []int {
+	return s.data[:s.top]
+}
+
+func (s *Stack) IsEmpty() bool {
+	return s.top == 0
+}
+
+func (s *Stack) Empty() {
+	s.top = 0
 }

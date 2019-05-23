@@ -9,7 +9,7 @@ import (
 
 //export JosephusCircleArr
 func JosephusCircleArr(length, times, starter byte) unsafe.Pointer {
-	fmt.Println(length, times, starter)
+	//fmt.Println(length, times, starter)
 	if length <= 0 {
 		fmt.Print(length, "人数有误")
 		return nil
@@ -18,6 +18,7 @@ func JosephusCircleArr(length, times, starter byte) unsafe.Pointer {
 		return nil
 	} else if times <= 0 {
 		fmt.Println(times, "报数周期有误")
+		return nil
 	}
 	// generate people array
 	var arr []byte
@@ -28,7 +29,6 @@ func JosephusCircleArr(length, times, starter byte) unsafe.Pointer {
 	}
 	i = starter - 1
 	var pop byte = 1
-	fmt.Println(arr)
 	for {
 		if pop == times {
 			result = append(result, arr[i])
@@ -46,13 +46,13 @@ func JosephusCircleArr(length, times, starter byte) unsafe.Pointer {
 		pop++
 	}
 	result = append(result, arr[0])
-	fmt.Println("end1", result)
 	res := C.CBytes(result)
 	return res
 }
 
 //export JosephusCircleLinkedList
 func JosephusCircleLinkedList(length, times, starter byte) unsafe.Pointer {
+	//fmt.Println(length, times, starter)
 	if length <= 0 {
 		fmt.Println("数组长度有误")
 		return nil
@@ -61,6 +61,7 @@ func JosephusCircleLinkedList(length, times, starter byte) unsafe.Pointer {
 		return nil
 	} else if times <= 0 {
 		fmt.Println("报数周期有误")
+		return nil
 	}
 	// generate people array
 	//linkList := structure.Constructor()
@@ -85,7 +86,6 @@ func JosephusCircleLinkedList(length, times, starter byte) unsafe.Pointer {
 			linkList = linkList.Next
 		}
 	}
-	fmt.Println("end2", result)
 	res := C.CBytes(result)
 	return res
 }
