@@ -2,8 +2,10 @@ package main
 
 import (
 	"../structure/stack"
+	"C"
 	"fmt"
 	"math"
+	"unsafe"
 )
 
 /*
@@ -16,7 +18,7 @@ heuristic = [[9, 8, 7, 6, 5, 4],
 
 func generateHeuristic(grid [][]rune, goal []rune) [][]rune {
 	var heuristic [][]rune
-	heuristic = init2DArr(rune(len(grid)), rune(len(grid[0])))
+	heuristic = init2DArr(rune(len(grid)), rune(len(grid[0])), 0)
 	var i, j rune
 	for i = 0; i < rune(len(grid)); i++ {
 		for j = 0; j < rune(len(grid[0])); j++ {
@@ -29,21 +31,20 @@ func generateHeuristic(grid [][]rune, goal []rune) [][]rune {
 	return heuristic
 }
 
-func init2DArr(row, col rune) [][]rune {
+func init2DArr(row, col, val rune) [][]rune {
 	var arr [][]rune
 	var middle []rune
 	var i, j rune
 	for i = 0; i < row; i++ {
 		middle = nil
 		for j = 0; j < col; j++ {
-			middle = append(middle, 0)
+			middle = append(middle, val)
 		}
 		arr = append(arr, middle)
 	}
 	return arr
 }
 
-//export AStar
 func AStar(grid [][]rune, init, goal []rune, cost rune) [][2]rune {
 	delta := [][]rune{
 		{-1, 0}, // go up
@@ -53,8 +54,8 @@ func AStar(grid [][]rune, init, goal []rune, cost rune) [][2]rune {
 	}
 
 	heuristic := generateHeuristic(grid, goal)
-	closed := init2DArr(rune(len(grid)), rune(len(grid[0])))
-	action := init2DArr(rune(len(grid)), rune(len(grid[0])))
+	closed := init2DArr(rune(len(grid)), rune(len(grid[0])), 0)
+	action := init2DArr(rune(len(grid)), rune(len(grid[0])), -1)
 	closed[init[0]][init[1]] = 1
 
 	x := init[0]
@@ -135,6 +136,11 @@ func AStar(grid [][]rune, init, goal []rune, cost rune) [][2]rune {
 	return path
 }
 
+//export AStarC
+func AStarC(x, y, initx, inity, endx, endy byte, obstacles unsafe.Pointer) unsafe.Pointer {
+	return
+}
+
 func main() {
 	// 0 are free path whereas 1's are obstacles
 	grid := [][]rune{{0, 1, 0, 0, 0},
@@ -147,7 +153,4 @@ func main() {
 	cost := rune(1)
 	res := AStar(grid, init, goal, cost)
 	fmt.Println(res)
-	for i := range res {
-		fmt.Println(i)
-	}
 }
