@@ -66,6 +66,7 @@ func NinePatch(edge byte) unsafe.Pointer {
 	return C.CBytes(res)
 }
 
+/*
 func main() {
 	res := NinePatch(3)
 	fmt.Println(res)
@@ -127,3 +128,5 @@ func main1() {
 	}
 	fmt.Println(res)
 }
+
+*/

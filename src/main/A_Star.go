@@ -24,7 +24,7 @@ func generateHeuristic(grid [][]rune, goal []rune) [][]rune {
 		for j = 0; j < rune(len(grid[0])); j++ {
 			heuristic[i][j] = rune(math.Abs(float64(i-goal[0]))) + rune(math.Abs(float64(j-goal[1])))
 			if grid[i][j] == 1 {
-				heuristic[i][j] = -1
+				heuristic[i][j] = 9999
 			}
 		}
 	}
@@ -137,8 +137,66 @@ func AStar(grid [][]rune, init, goal []rune, cost rune) [][2]rune {
 }
 
 //export AStarC
-func AStarC(x, y, initx, inity, endx, endy byte, obstacles unsafe.Pointer) unsafe.Pointer {
-	return
+func AStarC(sizeC, initC, goalC, walls unsafe.Pointer, length C.int) unsafe.Pointer {
+	size := C.GoBytes(sizeC, 2) // return type: []byte
+	init := C.GoBytes(initC, 2)
+	goal := C.GoBytes(goalC, 2)
+	obstaclesC := C.GoBytes(walls, length)
+	obstacles := ByteToRune2D(obstaclesC)
+	fmt.Println("size init goal obstacles", size, init, goal, obstacles)
+
+	grid := generateGrid(ByteToRune(size), obstacles)
+	//func AStar(grid [][]rune, init, goal []rune, cost rune) [][2]rune {
+	res := AStar(grid, ByteToRune(init), ByteToRune(goal), 1)
+	fmt.Println("res ", res)
+	// TODO: if give actually [][2]rune{}, it can return the val, while use res, it won't
+	//resC := C.CBytes(Rune2DToByte(res))
+	//middle := [][2]rune{{1,2}, {3,4}}
+	middle := res
+	resC := C.CBytes(Rune2DToByte(middle))
+	fmt.Println("resC ", Rune2DToByte(res))
+	return resC
+}
+
+func generateGrid(size []rune, obstacles [][2]rune) [][]rune {
+	res := init2DArr(size[0], size[1], 0)
+	for _, v := range obstacles {
+		res[v[0]][v[1]] = 1
+	}
+	return res
+}
+
+func ByteToRune(arr []byte) []rune {
+	var res []rune
+	for _, v := range arr {
+		res = append(res, rune(v))
+	}
+	return res
+}
+
+func ByteToRune2D(slice []byte) [][2]rune {
+	var res [][2]rune
+	var arr [2]rune
+	for i, v := range slice {
+		if i%2 == 0 {
+			arr[0] = rune(v)
+		} else {
+			arr[1] = rune(v)
+			res = append(res, arr)
+		}
+	}
+	return res
+}
+
+func Rune2DToByte(arr [][2]rune) []byte {
+	var res []byte
+	for i := range arr {
+		for _, w := range arr[i] {
+			res = append(res, byte(w))
+		}
+	}
+	fmt.Println(res, "132456789")
+	return res
 }
 
 func main() {
