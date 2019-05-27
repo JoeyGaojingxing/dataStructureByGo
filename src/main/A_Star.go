@@ -149,7 +149,7 @@ func AStarC(sizeC, initC, goalC, walls unsafe.Pointer, length C.int) unsafe.Poin
 	//func AStar(grid [][]rune, init, goal []rune, cost rune) [][2]rune {
 	var res [][2]rune
 	res = AStar(grid, ByteToRune(init), ByteToRune(goal), 1)
-	// TODO: [][2]rune structure cannot have zero value which transport with C, or it will miss
+	// [][2]rune structure cannot have zero value which transport with C, or it will miss
 	res = Rune2DAdd(res, 1)
 	resC := C.CBytes(Rune2DToByte(res))
 	return resC
