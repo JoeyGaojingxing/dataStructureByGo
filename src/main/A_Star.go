@@ -212,6 +212,7 @@ func Rune2DToByte(arr [][2]rune) []byte {
 	return res
 }
 
+/*
 func main() {
 	// 0 are free path whereas 1's are obstacles
 	grid := [][]rune{{0, 1, 0, 0, 0},
@@ -225,3 +226,4 @@ func main() {
 	res := AStar(grid, init, goal, cost)
 	fmt.Println(res)
 }
+*/
