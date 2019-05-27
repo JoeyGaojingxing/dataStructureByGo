@@ -147,14 +147,11 @@ func AStarC(sizeC, initC, goalC, walls unsafe.Pointer, length C.int) unsafe.Poin
 
 	grid := generateGrid(ByteToRune(size), obstacles)
 	//func AStar(grid [][]rune, init, goal []rune, cost rune) [][2]rune {
-	res := AStar(grid, ByteToRune(init), ByteToRune(goal), 1)
-	fmt.Println("res ", res)
-	// TODO: if give actually [][2]rune{}, it can return the val, while use res, it won't
-	//resC := C.CBytes(Rune2DToByte(res))
-	//middle := [][2]rune{{1,2}, {3,4}}
-	middle := res
-	resC := C.CBytes(Rune2DToByte(middle))
-	fmt.Println("resC ", Rune2DToByte(res))
+	var res [][2]rune
+	res = AStar(grid, ByteToRune(init), ByteToRune(goal), 1)
+	// TODO: [][2]rune structure cannot have zero value which transport with C, or it will miss
+	res = Rune2DAdd(res, 1)
+	resC := C.CBytes(Rune2DToByte(res))
 	return resC
 }
 
@@ -162,6 +159,22 @@ func generateGrid(size []rune, obstacles [][2]rune) [][]rune {
 	res := init2DArr(size[0], size[1], 0)
 	for _, v := range obstacles {
 		res[v[0]][v[1]] = 1
+	}
+	return res
+}
+
+func Rune2DAdd(slice [][2]rune, val rune) [][2]rune {
+	var res [][2]rune
+	var arr [2]rune
+	for _, v := range slice {
+		for j, v1 := range v {
+			if j == 0 {
+				arr[0] = v1 + val
+			} else {
+				arr[1] = v1 + val
+				res = append(res, arr)
+			}
+		}
 	}
 	return res
 }
