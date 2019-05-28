@@ -141,17 +141,19 @@ func AStarC(sizeC, initC, goalC, walls unsafe.Pointer, length C.int) unsafe.Poin
 	size := C.GoBytes(sizeC, 2) // return type: []byte
 	init := C.GoBytes(initC, 2)
 	goal := C.GoBytes(goalC, 2)
-	obstaclesC := C.GoBytes(walls, length)
+	obstaclesC := C.GoBytes(walls, length-2)
 	obstacles := ByteToRune2D(obstaclesC)
 	fmt.Println("size init goal obstacles", size, init, goal, obstacles)
 
-	grid := generateGrid(ByteToRune(size), obstacles)
+	grid := generateGrid(ByteToRune(size, 0), obstacles)
 	//func AStar(grid [][]rune, init, goal []rune, cost rune) [][2]rune {
 	var res [][2]rune
-	res = AStar(grid, ByteToRune(init), ByteToRune(goal), 1)
+	res = AStar(grid, ByteToRune(init, -1), ByteToRune(goal, -1), 1)
 	// [][2]rune structure cannot have zero value which transport with C, or it will miss
 	res = Rune2DAdd(res, 1)
-	resC := C.CBytes(Rune2DToByte(res))
+	arr := []byte{byte(len(res))}
+	arr = append(arr, Rune2DToByte(res, 1)...)
+	resC := C.CBytes(arr)
 	return resC
 }
 
@@ -179,10 +181,10 @@ func Rune2DAdd(slice [][2]rune, val rune) [][2]rune {
 	return res
 }
 
-func ByteToRune(arr []byte) []rune {
+func ByteToRune(arr []byte, val rune) []rune {
 	var res []rune
 	for _, v := range arr {
-		res = append(res, rune(v))
+		res = append(res, rune(v)+val)
 	}
 	return res
 }
@@ -192,27 +194,28 @@ func ByteToRune2D(slice []byte) [][2]rune {
 	var arr [2]rune
 	for i, v := range slice {
 		if i%2 == 0 {
-			arr[0] = rune(v)
+			arr[0] = rune(v) - 1
 		} else {
-			arr[1] = rune(v)
+			arr[1] = rune(v) - 1
 			res = append(res, arr)
 		}
 	}
 	return res
 }
 
-func Rune2DToByte(arr [][2]rune) []byte {
+func Rune2DToByte(arr [][2]rune, val int) []byte {
 	var res []byte
 	for i := range arr {
 		for _, w := range arr[i] {
-			res = append(res, byte(w))
+			res = append(res, byte(w)+byte(val))
 		}
 	}
 	fmt.Println(res, "132456789")
 	return res
 }
 
-/*
+//func main() {}
+
 func main() {
 	// 0 are free path whereas 1's are obstacles
 	grid := [][]rune{{0, 1, 0, 0, 0},
@@ -226,4 +229,3 @@ func main() {
 	res := AStar(grid, init, goal, cost)
 	fmt.Println(res)
 }
-*/
