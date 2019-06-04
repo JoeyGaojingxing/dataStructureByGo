@@ -80,6 +80,7 @@ func AStar(grid [][]rune, init, goal []rune, cost rune) [][2]rune {
 			if err == false {
 				break
 			}
+			cell.Sort()
 			x := next[2]
 			y := next[3]
 			g := next[1]
