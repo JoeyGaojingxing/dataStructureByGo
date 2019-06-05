@@ -19,4 +19,10 @@ func (val *Graph) MatchBoth(x, y int) {
 	(*val)[y][x] = 1
 }
 
+func (val *Graph) GetEdge(x int) {}
+
+func (val *Graph) GetVal() {
+
+}
+
 func main() {}
