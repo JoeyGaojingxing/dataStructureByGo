@@ -40,7 +40,3 @@ func isMirror(ltree, rtree *Tree) bool {
 func (tree *Tree) Tree2Arr() []Val {
 	return []Val{}
 }
-
-func main() {
-
-}
