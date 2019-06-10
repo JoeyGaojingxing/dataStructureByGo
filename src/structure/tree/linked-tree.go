@@ -1,5 +1,7 @@
 package tree
 
+import "fmt"
+
 type Tree struct {
 	ltree *Tree
 	val   Val
@@ -13,14 +15,16 @@ func Construct() *Tree {
 	return &res
 }
 
-func (tree *Tree) AddLeft(val Val) {
-	add := Tree{val: val}
-	tree.ltree = &add
+func Init(val int) *Tree {
+	return &Tree{val: Val(val)}
 }
 
-func (tree *Tree) AddRight(val Val) {
-	add := Tree{val: val}
-	tree.rtree = &add
+func (tree *Tree) AddLeft(val *Tree) {
+	tree.ltree = val
+}
+
+func (tree *Tree) AddRight(val *Tree) {
+	tree.rtree = val
 }
 
 func (tree *Tree) IsSymmetric() bool {
@@ -29,10 +33,13 @@ func (tree *Tree) IsSymmetric() bool {
 
 func isMirror(ltree, rtree *Tree) bool {
 	if ltree == nil && rtree == nil {
+		fmt.Print("nil, true\n")
 		return true
 	} else if ltree == nil || rtree == nil {
+		fmt.Print("nil, false\n")
 		return false
 	} else {
+		fmt.Print("ltree rtree :", ltree.val, rtree.val, "\n")
 		return ltree.val == rtree.val && isMirror(ltree.ltree, rtree.rtree) && isMirror(ltree.rtree, rtree.ltree)
 	}
 }
