@@ -22,12 +22,13 @@ func generateTree(val []int) (*tree.Tree, bool) {
 		}
 		fifo.Put(node)
 	}
-	isSymmetric := info.IsSymmetric()
+	isSymmetric := root.IsSymmetric()
 	return info, isSymmetric
 }
 
 func main() {
 	fmt.Print(generateTree([]int{1, 1, 2, 3, 3, 2}))
 	fmt.Print("\n __________________ \n")
-	fmt.Print(generateTree([]int{1, 1, 1, 1}))
+	fmt.Print(generateTree([]int{1, 1, 1, 1, 1, 1}))
+	fmt.Print("\n __________________ \n")
 }

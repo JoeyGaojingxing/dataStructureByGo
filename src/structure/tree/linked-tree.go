@@ -40,7 +40,8 @@ func isMirror(ltree, rtree *Tree) bool {
 		return false
 	} else {
 		fmt.Print("ltree rtree :", ltree.val, rtree.val, "\n")
-		return ltree.val == rtree.val && isMirror(ltree.ltree, rtree.rtree) && isMirror(ltree.rtree, rtree.ltree)
+		judge := ltree.val == rtree.val
+		return judge && isMirror(ltree.ltree, rtree.rtree) && isMirror(ltree.rtree, rtree.ltree)
 	}
 }
 
