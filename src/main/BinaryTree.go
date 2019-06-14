@@ -7,6 +7,7 @@ import (
 )
 
 func generateTree(val []int) (*tree.Tree, bool) {
+	fmt.Print(val)
 	fifo := queue.Constructor()
 	root := tree.Construct()
 	fifo.Put(root)
@@ -29,6 +30,12 @@ func generateTree(val []int) (*tree.Tree, bool) {
 func main() {
 	fmt.Print(generateTree([]int{1, 1, 2, 3, 3, 2}))
 	fmt.Print("\n __________________ \n")
-	fmt.Print(generateTree([]int{1, 1, 1, 1, 1, 1}))
+	fmt.Print(generateTree([]int{1, 1, 1, 1}))
+	fmt.Print("\n __________________ \n")
+	fmt.Print(generateTree([]int{1, 2, 1, 1}))
+	fmt.Print("\n __________________ \n")
+	fmt.Print(generateTree([]int{1, 1, 1, 1}))
+	fmt.Print("\n __________________ \n")
+	fmt.Print(generateTree([]int{1, 2}))
 	fmt.Print("\n __________________ \n")
 }
