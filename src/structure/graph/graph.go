@@ -17,7 +17,7 @@ func Init(num int) *graph {
 	return &graph{edge: res, vertical: res}
 }
 
-func (val *graph) MatchBoth(x, y int) {
+func (val *graph) SetEdge(x, y int) {
 	val.edge[x][y] = 1
 	val.edge[y][x] = 1
 }
