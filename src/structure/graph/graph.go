@@ -1,9 +1,12 @@
 package graph
 
-type Graph [][]int
+type graph struct {
+	edge     [][]int
+	vertical [][]int
+}
 
-func Init(num int) *Graph {
-	var res Graph
+func Init(num int) *graph {
+	var res [][]int
 	for i := 0; i < num; i++ {
 		var mid []int
 		for j := 0; j < num; j++ {
@@ -11,16 +14,22 @@ func Init(num int) *Graph {
 		}
 		res = append(res, mid)
 	}
-	return &res
+	return &graph{edge: res, vertical: res}
 }
 
-func (val *Graph) MatchBoth(x, y int) {
-	(*val)[x][y] = 1
-	(*val)[y][x] = 1
+func (val *graph) MatchBoth(x, y int) {
+	val.edge[x][y] = 1
+	val.edge[y][x] = 1
 }
 
-func (val *Graph) GetEdge(x int) []int {
-	return (*val)[x]
+func (val *graph) GetEdge(x int) []int {
+	return val.edge[x]
 }
 
-func main() {}
+func (val *graph) SetValue(x, y, z int) {
+	val.vertical[x][y] = z
+}
+
+func (val *graph) GetValue(x, y int) int {
+	return val.vertical[x][y]
+}
